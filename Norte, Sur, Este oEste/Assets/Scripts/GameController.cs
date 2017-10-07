@@ -15,9 +15,15 @@ public class GameController : MonoBehaviour {
     public GameObject generator;    //Generador de mobs
     private AudioSource musicPlayer; //Manejar la música
 
+    public GameObject doors;
+
 	// Use this for initialization
 	void Start () {
         musicPlayer = GetComponent<AudioSource>();
+
+        doors.SendMessage("Inicio");
+        //Función para rotar las puertas
+        //doors.SendMessage("ChangeSprite", "Derecha");
 	}
 	
 	// Update is called once per frame
@@ -31,7 +37,7 @@ public class GameController : MonoBehaviour {
             uiIdle.SetActive(false);
 
             //Poner en marcha el generador
-            generator.SendMessage("StartGenerator");
+            generator.SendMessage("Generate");
 
             //Música
             musicPlayer.Play();
