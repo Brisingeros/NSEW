@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\Generation\Corridor.cs" />
     <Compile Include="Assets\Scripts\Generation\IntRange.cs" />
     <Compile Include="Assets\Scripts\Generation\Room.cs" />
+    <Compile Include="Assets\Scripts\RoscoController.cs" />
     <Compile Include="Assets\Scripts\StartIt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

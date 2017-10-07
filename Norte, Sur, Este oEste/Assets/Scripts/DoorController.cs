@@ -12,6 +12,8 @@ public class DoorController : MonoBehaviour {
     public Sprite[] abajo;
     public Sprite[] izquierda;
 
+    private int state = 0;
+
     // Use this for initialization
     void Start () {
 
@@ -32,32 +34,30 @@ public class DoorController : MonoBehaviour {
     }
 
     public void ChangeSprite(string direc) {
-        if (direc == "Arriba")
+        if (direc == "Derecha")
         {
-            doorSprites[0].sprite = arriba[0];
-            doorSprites[1].sprite = derecha[1];
-            doorSprites[2].sprite = abajo[2];
-            doorSprites[3].sprite = izquierda[3];
+            if (state == 0)
+            {
+                state = 3;
+            }
+            else
+            {
+                state--;
+            }
         }
-        else if (direc == "Derecha") {
-            doorSprites[0].sprite = arriba[3];
-            doorSprites[1].sprite = derecha[0];
-            doorSprites[2].sprite = abajo[1];
-            doorSprites[3].sprite = izquierda[2];
+        else if (direc == "Izquierda") {
+            if (state == 3)
+            {
+                state = 0;
+            }
+            else {
+                state++;
+            }
         }
-        else if (direc == "Abajo")
-        {
-            doorSprites[0].sprite = arriba[2];
-            doorSprites[1].sprite = derecha[3];
-            doorSprites[2].sprite = abajo[0];
-            doorSprites[3].sprite = izquierda[1];
-        }
-        else if (direc == "Izquierda")
-        {
-            doorSprites[0].sprite = arriba[1];
-            doorSprites[1].sprite = derecha[2];
-            doorSprites[2].sprite = abajo[3];
-            doorSprites[3].sprite = izquierda[0];
-        }
+
+        doorSprites[0].sprite = arriba[state];
+        doorSprites[1].sprite = derecha[(state + 1) % 4];
+        doorSprites[2].sprite = abajo[(state + 2) % 4];
+        doorSprites[3].sprite = izquierda[(state + 3) % 4];
     }
 }

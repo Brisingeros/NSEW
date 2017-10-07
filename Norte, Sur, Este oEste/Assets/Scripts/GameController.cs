@@ -24,7 +24,10 @@ public class GameController : MonoBehaviour {
         doors.SendMessage("Inicio");
         //Función para rotar las puertas
         //doors.SendMessage("ChangeSprite", "Derecha");
-	}
+        //doors.SendMessage("ChangeSprite", "Derecha");
+        //doors.SendMessage("ChangeSprite", "Derecha");
+        //doors.SendMessage("ChangeSprite", "Izquierda");
+    }
 	
 	// Update is called once per frame
 	void Update () {
