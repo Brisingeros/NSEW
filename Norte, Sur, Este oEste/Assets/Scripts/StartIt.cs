@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class StartIt : MonoBehaviour {
 
     public int contador = 0;
@@ -38,8 +37,8 @@ public class StartIt : MonoBehaviour {
 
             menu[contador].SetActive(true);
         }
-        else if (contador == 3) {
-
+        else if (userAction && contador == 2) {
+            SceneManager.LoadScene("GameScene");
         }
     }
 }
