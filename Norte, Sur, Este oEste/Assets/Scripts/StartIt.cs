@@ -4,41 +4,39 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class StartIt : MonoBehaviour {
 
     public int contador = 0;
 
-    public GameObject[] menu;
+    public GameObject menu;
+    public VideoPlayer video;
+    public GameObject backGround;
 
     // Use this for initialization
     void Start () {
-
-        for (int i = 1; i < menu.Length; i++) {
-            menu[i].SetActive(false);
-        }
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        bool userAction = Input.GetKeyDown("up") || Input.GetMouseButtonDown(0);
+        bool userAction = Input.GetKeyDown("right") || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown("left") || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space);
 
-        if (userAction && contador < 2)
-        {
-            for (int i = 0; i < menu.Length; i++)
-            {
-                menu[i].SetActive(false);
+        if (userAction) {
+            if (contador == 0) {
+                menu.SetActive(false);
+                backGround.SetActive(false);
+
+                video.Play();
+
+                contador++;
             }
-
-            contador++;
-
-            //System.Threading.Thread.Sleep(1000);
-
-            menu[contador].SetActive(true);
-        }
-        else if (userAction && contador == 2) {
-            SceneManager.LoadScene("GameScene");
+            else if (contador == 1)
+            {
+                SceneManager.LoadScene("GameScene");
+            }
+            
         }
     }
 }

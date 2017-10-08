@@ -2,41 +2,74 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoscoController : MonoBehaviour {
+public class RoscoController : MonoBehaviour
+{
 
-    public GameObject rosco;
-    private Transform bodyPos;
+    public GameObject doors;
+    public Animator animator;
 
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int doorState;
+    public int prevState;
 
-    public void Inicio() {
-        bodyPos = rosco.GetComponent<Transform>();
+    // Use this for initialization
+    void Start()
+    {
+        doorState = 0;
+        prevState = 0;
+
+        animator = gameObject.GetComponent<Animator>();
     }
 
-    public void Rotate(string direc) {
-        if (direc == "Arriba")
+    // Update is called once per frame
+    void Update()
+    {
+        doorState = doors.GetComponent<DoorController>().state;
+
+        if (prevState == 0)
         {
-            
+            if (doorState == 1)
+            {
+                animator.Play("1erCuartoI");
+            }
+            else if (doorState == 3)
+            {
+                animator.Play("1erCuartoD");
+            }
         }
-        else if (direc == "Derecha")
+        else if (prevState == 1)
         {
-            
+            if (doorState == 0)
+            {
+                animator.Play("4erCuartoD");
+            }
+            else if (doorState == 2)
+            {
+                animator.Play("2erCuartoI");
+            }
         }
-        else if (direc == "Abajo")
+        else if (prevState == 2)
         {
-            
+            if (doorState == 1)
+            {
+                animator.Play("3erCuartoD");
+            }
+            else if (doorState == 3)
+            {
+                animator.Play("3erCuartoI");
+            }
         }
-        else if (direc == "Izquierda")
+        else if (prevState == 3)
         {
-            
+            if (doorState == 0)
+            {
+                animator.Play("4erCuartoI");
+            }
+            else if (doorState == 2)
+            {
+                animator.Play("2erCuartoD");
+            }
         }
+
+        prevState = doorState;
     }
 }

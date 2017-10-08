@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour {
 
-    public GameObject[] enemyPrefabs;
+    public GameObject enemyPrefabs;
     public GameObject clone;
 
-    public float difficulty = 0.05f;
+    public float difficulty = 0.025f;
 
     public int enemyType;
 
-    public float min = 1.05f;
-    public float max = 3.05f;
+    private float min;
+    private float max;
     public float generatorTimer;
 
     public Vector2[] directions = { new Vector2(0.0f, 1.0f), new Vector2(1.0f, 0.0f), new Vector2(0.0f, -1.0f), new Vector2(-1.0f, 0.0f) };
@@ -20,40 +20,43 @@ public class EnemySpawn : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+		min = 4.025f;
+        max = 6.525f;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+    }
 
     public void Generate()
     {
         AumentDifficulty();
 
-        enemyType = Random.Range(0, 3);
+        enemyType = Random.Range(0, 4);
         generatorTimer = Random.Range(min, max);
-        direction = directions[Random.Range(0, 3)];
+        direction = directions[Random.Range(0, 4)];
 
         //Modificar esto acorde a direcciones y velocidades
-        clone = Instantiate(enemyPrefabs[enemyType], transform.position, Quaternion.identity);
-        clone.transform.position = new Vector3(direction.x * 0.2f, direction.y * 0.2f, 0f);
-        Rigidbody2D cloneBody = clone.GetComponent<Rigidbody2D>();
-        cloneBody.velocity.Set(direction.x, direction.y);
-        clone.SendMessage("SetSprite", direction);
+        clone = Instantiate(enemyPrefabs, transform.position, Quaternion.identity);
+        clone.SendMessage("SetTipo", enemyType);
+        clone.transform.position = new Vector3(direction.x * 1.2f, direction.y * 1.2f, 0f);
+        clone.SendMessage("SetAnimation", direction);
+        clone.SendMessage("Initiate");
 
-        InvokeRepeating("Generate", 0f, generatorTimer);
+        Invoke("Generate", generatorTimer);
     }
 
-    public void AumentDifficulty() {
+    public void AumentDifficulty()
+    {
         if (min > 0.0f) {
-            min -= difficulty;
-            max -= difficulty;
+            min = min - difficulty;
+            max = max - difficulty;
         }
     }
 
-    public void StopGenerate() {
+    public void StopGenerate()
+    {
         CancelInvoke("Generate");
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public enum GameState { Idle, Playing, Ended, Ready }
+public enum GameState { Idle, Playing, Phantom, Ended, Ready }
 
 public class GameController : MonoBehaviour {
 
@@ -15,23 +15,15 @@ public class GameController : MonoBehaviour {
     public GameObject generator;    //Generador de mobs
     private AudioSource musicPlayer; //Manejar la música
 
-    public GameObject doors;
-
 	// Use this for initialization
 	void Start () {
         musicPlayer = GetComponent<AudioSource>();
-
-        doors.SendMessage("Inicio");
-        //Función para rotar las puertas
-        //doors.SendMessage("ChangeSprite", "Derecha");
-        //doors.SendMessage("ChangeSprite", "Derecha");
-        //doors.SendMessage("ChangeSprite", "Derecha");
-        //doors.SendMessage("ChangeSprite", "Izquierda");
     }
 	
 	// Update is called once per frame
 	void Update () {
-        bool userAction = Input.GetKeyDown("up") || Input.GetKeyDown("down") || Input.GetKeyDown("left") || Input.GetKeyDown("right");
+        bool userAction = Input.GetKeyDown("right") || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown("left") || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space);
+
 
         if (gameState == GameState.Idle && userAction)
         {
@@ -50,6 +42,7 @@ public class GameController : MonoBehaviour {
                 RestartGame();
             }
         }
+
 
     }
 
